@@ -10,10 +10,11 @@ class MainCubit extends Cubit<MainState> {
   MainCubit(this.scoreIteractor) : super(InitialState());
 
   int computeScore(Score score) {
-    return scoreIteractor.computeScore(state.score);
+    return scoreIteractor.computeScore(score);
   }
 
   void addBigCard(){
+    print("addBig");
     Score newScore = scoreIteractor.addBigCard(state.score);
     emit(
       MainState(

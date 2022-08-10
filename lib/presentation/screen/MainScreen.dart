@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:tape_letape/presentation/helper/TimeHelper.dart';
 import 'package:tape_letape/presentation/screen/MainCubit.dart';
 
 import '../base/CubitWidget.dart';
@@ -14,24 +15,29 @@ class _MainScreenState
     extends CubitWidgetState<MainCubit, MainState, MainScreen> {
   @override
   Widget buildWidget(BuildContext context, MainState state) {
-    return Row(
+    return Column(
       children: [
-        cardScoreWidget("+10", () {
-          cubit.addSmallCard();
-        }, () {
-          cubit.removeSmallCard();
-        }, state.score.smallCardCount),
-        cardScoreWidget("+30", () {
-          cubit.addBigCard();
-        }, () {
-          cubit.removeBigCard();
-        }, state.score.bigCardCount),
+        Row(
+          children: [
+            cardScoreWidget("+10", () {
+              cubit.addSmallCard();
+            }, () {
+              cubit.removeSmallCard();
+            }, state.score.smallCardCount),
+            cardScoreWidget("+30", () {
+              cubit.addBigCard();
+            }, () {
+              cubit.removeBigCard();
+            }, state.score.bigCardCount),
+          ],
+        ),
+        Text(TimeHelper.secondsToMinutesString(state.computedScore))
       ],
     );
   }
 
   Widget cardScoreWidget(
-      String text, Function onAdd, Function onRemove, int count) {
+      String text, VoidCallback onAdd, VoidCallback onRemove, int count) {
     return Column(
       children: [
         Container(
@@ -57,15 +63,11 @@ class _MainScreenState
         Row(
           children: [
             OutlinedButton(
-                onPressed: () {
-                  onRemove();
-                },
+                onPressed: onRemove,
                 child: Text("-1")),
             Text(count.toString()),
             OutlinedButton(
-                onPressed: () {
-                  onRemove();
-                },
+                onPressed: onAdd,
                 child: Text("+1")),
           ],
         )
