@@ -10,8 +10,12 @@ dependencies:
   flutter:
     sdk: flutter
 
+  cupertino_icons: ^1.0.2
+
   #Utils
   logger: ^1.1.0
+  equatable: ^2.0.3
+  hexcolor: ^2.0.7
 
 
   #Internationalization
@@ -21,7 +25,12 @@ dependencies:
   easy_localization: ^3.0.0
   easy_localization_loader: ^1.0.0
 
-  cupertino_icons: ^1.0.2
+  #BLoC
+  flutter_bloc: ^8.0.1
+
+  #DI
+  provider: ^6.0.3
+
 
 dev_dependencies:
   flutter_test:
