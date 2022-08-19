@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tape_letape/presentation/Navigation.dart';
-import 'package:tape_letape/presentation/screen/MainScreen.dart';
+import 'package:tape_letape/presentation/screen/score/ScoreScreen.dart';
 
 class Application extends StatelessWidget {
   const Application({Key? key}) : super(key: key);

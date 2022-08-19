@@ -2,19 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:tape_letape/presentation/helper/TimeHelper.dart';
-import 'package:tape_letape/presentation/screen/MainCubit.dart';
+import 'package:tape_letape/presentation/screen/score/ScoreScreenCubit.dart';
 
-import '../base/CubitWidget.dart';
+import '../../base/CubitWidget.dart';
 
-class MainScreen extends StatefulWidget {
+class ScoreScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _MainScreenState();
+  State<StatefulWidget> createState() => _ScoreScreenState();
 }
 
-class _MainScreenState
-    extends CubitWidgetState<MainCubit, MainState, MainScreen> {
+class _ScoreScreenState
+    extends CubitWidgetState<ScoreScreenCubit, ScoreScreenState, ScoreScreen> {
   @override
-  Widget buildWidget(BuildContext context, MainState state) {
+  Widget buildWidget(BuildContext context, ScoreScreenState state) {
     return Column(
       children: [
         Row(
