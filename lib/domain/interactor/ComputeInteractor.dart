@@ -3,9 +3,8 @@ import 'package:tape_letape/domain/model/Score.dart';
 class ScoreIteractor {
 
   Score addBigCard(Score score) {
-    return Score(
-        score.bigCardCount + 1,
-        score.smallCardCount
+    return score.copy(
+      bigCardCount: score.bigCardCount + 1
     );
   }
 
@@ -13,16 +12,14 @@ class ScoreIteractor {
     if(score.bigCardCount == 0){
       return score;
     }
-    return Score(
-        score.bigCardCount - 1,
-        score.smallCardCount
+    return score.copy(
+        bigCardCount: score.bigCardCount - 1
     );
   }
 
   Score addSmallCard(Score score) {
-    return Score(
-        score.bigCardCount,
-        score.smallCardCount + 1
+    return score.copy(
+        smallCardCount: score.smallCardCount + 1
     );
   }
 
@@ -30,9 +27,8 @@ class ScoreIteractor {
     if(score.smallCardCount == 0){
       return score;
     }
-    return Score(
-        score.bigCardCount,
-        score.smallCardCount - 1
+    return score.copy(
+        smallCardCount: score.smallCardCount - 1
     );
   }
 
@@ -42,7 +38,7 @@ class ScoreIteractor {
     return bigCardScore + smallCardScore;
   }
 
-  int _bigCardScoreValue = 30;
-  int _smallCardScoreValue = 10;
+  final int _bigCardScoreValue = 30;
+  final int _smallCardScoreValue = 10;
 
 }
