@@ -1,77 +1,30 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:tape_letape/presentation/helper/TimeHelper.dart';
+import 'package:tape_letape/presentation/base/CubitWidget.dart';
 import 'package:tape_letape/presentation/screen/score/ScoreScreenCubit.dart';
-
-import '../../base/CubitWidget.dart';
+import 'package:tape_letape/presentation/screen/score/item/ScoreScreenItem.dart';
 
 class ScoreScreen extends StatefulWidget {
+  const ScoreScreen({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _ScoreScreenState();
 }
 
-class _ScoreScreenState
-    extends CubitWidgetState<ScoreScreenCubit, ScoreScreenState, ScoreScreen> {
+class _ScoreScreenState extends CubitWidgetState<ScoreScreenCubit,
+    ScoreScreenState, ScoreScreen> {
   @override
-  Widget buildWidget(BuildContext context, ScoreScreenState state) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            cardScoreWidget("+10", () {
-              cubit.addSmallCard();
-            }, () {
-              cubit.removeSmallCard();
-            }, state.score.smallCardCount),
-            cardScoreWidget("+30", () {
-              cubit.addBigCard();
-            }, () {
-              cubit.removeBigCard();
-            }, state.score.bigCardCount),
-          ],
-        ),
-        Text(TimeHelper.secondsToMinutesString(state.computedScore))
-      ],
-    );
+  void initState() {
+    super.initState();
+    cubit.loadPlayer();
   }
 
-  Widget cardScoreWidget(
-      String text, VoidCallback onAdd, VoidCallback onRemove, int count) {
-    return Column(
-      children: [
-        Container(
-          padding:
-              const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
-          decoration: BoxDecoration(
-            border: Border.all(color: HexColor('#EEEEEE')),
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black, offset: Offset(0, 1), blurRadius: 20)
-            ],
-          ),
-          child: Center(
-            child: Text(text),
-          ),
-          width: 200,
-          height: 300,
-          margin:
-              const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
-        ),
-        Row(
-          children: [
-            OutlinedButton(
-                onPressed: onRemove,
-                child: Text("-1")),
-            Text(count.toString()),
-            OutlinedButton(
-                onPressed: onAdd,
-                child: Text("+1")),
-          ],
-        )
-      ],
+  @override
+  Widget buildWidget(BuildContext context, ScoreScreenState state) {
+    return ListView(
+      scrollDirection: Axis.horizontal,
+      children: state.players.map((player) =>
+        ScoreScreenItem(playerId : player.id)
+      ).toList(),
     );
   }
 }

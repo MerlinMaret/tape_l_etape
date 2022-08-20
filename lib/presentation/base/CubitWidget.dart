@@ -8,12 +8,17 @@ abstract class CubitWidgetState<CubitEntity extends Cubit<CubitState>,
   @override
   void initState() {
     super.initState();
-    cubit = BlocProvider.of<CubitEntity>(context);
+    cubit = getCubitEntity();
+  }
+
+  CubitEntity getCubitEntity() {
+    return BlocProvider.of<CubitEntity>(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CubitEntity, CubitState>(
+      bloc: cubit,
       builder: (context, state) {
         return buildWidget(context, state);
       },

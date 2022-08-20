@@ -1,24 +1,29 @@
 import 'dart:async';
 
+import 'package:rxdart/subjects.dart';
 import 'package:tape_letape/domain/model/Player.dart';
 
-class PlayerRepository{
+class PlayerRepository {
+  final BehaviorSubject<List<Player>> _playersSubject = BehaviorSubject.seeded(List.empty(growable: true));
 
-  StreamController<List<Player>> _playersStream = StreamController.broadcast();
-  List<Player> players = List.empty(growable: true);
-
-  void setPlayer(Player player) {
-    if(!players.contains(player)){
-      players.add(player);
+  void setPlayer(Player player) async {
+    List<Player> _players = _playersSubject.value;
+    if (!_players.contains(player)) {
+      _players.add(player);
     }
-    _playersStream.sink.add(players);
+    _playersSubject.add(_players);
   }
 
-  Player getPlayer(String playerId){
+  Future<Player> getPlayer(String playerId) async {
+    List<Player> players = await getPlayers();
     return players.firstWhere((element) => element.id == playerId);
   }
 
-  Stream<List<Player>> getPlayers(){
-    return _playersStream.stream;
+  Future<List<Player>> getPlayers() async {
+    return _playersSubject.value;
+  }
+
+  Stream<List<Player>> getPlayersObservable() {
+    return _playersSubject;
   }
 }

@@ -7,6 +7,8 @@ import 'package:tape_letape/presentation/component/Button.dart';
 import 'CreatePlayerScreenCubit.dart';
 
 class CreatePlayerScreen extends StatefulWidget {
+  const CreatePlayerScreen({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _CreatePlayerScreenState();
 }

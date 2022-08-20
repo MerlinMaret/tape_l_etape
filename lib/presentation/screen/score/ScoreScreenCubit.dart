@@ -1,57 +1,33 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tape_letape/domain/model/Score.dart';
-
-import '../../../domain/interactor/ComputeInteractor.dart';
+import 'package:tape_letape/domain/interactor/player/GetPlayerInteractor.dart';
+import 'package:tape_letape/domain/model/Player.dart';
 
 class ScoreScreenCubit extends Cubit<ScoreScreenState> {
-  ScoreIteractor scoreIteractor;
+  GetPlayerInteractor getPlayerInteractor;
 
-  ScoreScreenCubit(this.scoreIteractor) : super(InitialState());
+  ScoreScreenCubit(this.getPlayerInteractor) : super(InitialState());
 
-  int computeScore(Score score) {
-    return scoreIteractor.computeScore(score);
-  }
-
-  void addBigCard() {
-    Score newScore = scoreIteractor.addBigCard(state.score);
-    emit(
-      ScoreScreenState(newScore, computeScore(newScore)),
-    );
-  }
-
-  void removeBigCard() {
-    Score newScore = scoreIteractor.removeBigCard(state.score);
-    emit(
-      ScoreScreenState(newScore, computeScore(newScore)),
-    );
-  }
-
-  void addSmallCard() {
-    Score newScore = scoreIteractor.addSmallCard(state.score);
-    emit(
-      ScoreScreenState(newScore, computeScore(newScore)),
-    );
-  }
-
-  void removeSmallCard() {
-    Score newScore = scoreIteractor.removeSmallCard(state.score);
-    emit(
-      ScoreScreenState(newScore, computeScore(newScore)),
-    );
+  void loadPlayer() {
+    getPlayerInteractor.getPlayers().listen((event) {
+      emit(LoadedState(players: event));
+    });
   }
 }
 
 class ScoreScreenState extends Equatable {
-  Score score;
-  int computedScore;
+  List<Player> players;
 
-  ScoreScreenState(this.score, this.computedScore);
+  ScoreScreenState({required this.players});
 
   @override
-  List<Object?> get props => [score, computedScore];
+  List<Object?> get props => [players];
 }
 
 class InitialState extends ScoreScreenState {
-  InitialState() : super(Score(smallCardCount: 0, bigCardCount: 0), 0);
+  InitialState() : super(players: List.empty());
+}
+
+class LoadedState extends ScoreScreenState {
+  LoadedState({required List<Player> players}) : super(players: players);
 }

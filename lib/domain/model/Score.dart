@@ -8,7 +8,6 @@ class Score extends Equatable with Copyable<Score> {
   Score({required this.bigCardCount, required this.smallCardCount});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [bigCardCount, smallCardCount];
 
   @override
