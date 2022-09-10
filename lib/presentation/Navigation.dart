@@ -4,11 +4,11 @@ import 'package:tape_letape/presentation/screen/score/ScoreScreen.dart';
 
 class Navigation {
   static NavRoute createUsers = NavRoute(url: "/");
-  static NavRoute score = NavRoute(url: "/score");
+  static NavRoute score = NavRoute(url: "/game");
 
   static Map<String, WidgetBuilder> routes = {
-    createUsers: (BuildContext context) => CreatePlayerScreen(),
-    score: (BuildContext context) => ScoreScreen(),
+    createUsers: (BuildContext context) => const CreatePlayerScreen(),
+    score: (BuildContext context) => const ScoreScreen(),
   }.map((key, value) => MapEntry(key.url, value));
 
   static void pushRoute(BuildContext context, NavRoute route){

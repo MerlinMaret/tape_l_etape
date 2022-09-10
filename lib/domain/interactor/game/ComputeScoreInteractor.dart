@@ -1,6 +1,6 @@
 import 'package:tape_letape/domain/model/Score.dart';
 
-class ScoreIteractor {
+class ComputeScoreIteractor {
 
   Score addBigCard(Score score) {
     return score.copy(
